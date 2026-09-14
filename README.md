@@ -1,126 +1,160 @@
 # Intelligent Freelance Marketplace Platform
 
-A DSA-based freelance marketplace that focuses on intelligently matching projects with suitable freelancers using efficient searching, relationship modelling, scoring, ranking, and Top-K recommendation.
+> A DSA-based freelance marketplace that intelligently matches projects
+> with suitable freelancers using efficient searching, relationship
+> modelling, multi-factor scoring, and Top-K recommendation.
 
 ## Project Overview
 
-The platform aims to improve freelancer-project matching beyond simple keyword search. It considers:
+The **Intelligent Freelance Marketplace Platform** aims to go beyond
+basic keyword-based freelancer search.
 
-- Skills
-- Experience
-- Rating
-- Availability
-- Project history
-- Rate and budget compatibility
+Instead of considering only skills, the proposed system evaluates
+multiple factors such as:
 
-### Basic Workflow
+-   Skills
+-   Experience
+-   Rating
+-   Availability
+-   Project History
+-   Rate & Budget Compatibility
 
-```text
+The core focus of this project is to demonstrate how **Data Structures
+and Algorithms** can be applied to build an efficient freelancer
+recommendation engine.
+
+## Proposed Workflow
+
+``` text
 Project Requirements
         ↓
-Skill Identification
+Skill / Domain Identification
         ↓
-Freelancer Search
+Graph-Based Candidate Discovery
+        ↓
+BST / AVL Retrieval
         ↓
 Candidate Filtering
         ↓
-Matching Score
+Multi-Factor MatchScore
         ↓
-Ranking
+Max Heap Ranking
         ↓
-Max Heap / Priority Queue
-        ↓
-Top-K Recommendations
+Top-K Freelancer Recommendations
 ```
 
-## DSA Concepts
+##  DSA Used
 
-| DSA Concept | Proposed Use |
-|-------------|--------------|
-| BST / AVL Tree | Efficient searching |
-| Hash Map | Fast skill lookup |
-| Graph | Freelancer-skill-project relationships |
-| BFS / DFS | Exploring related skills |
-| Max Heap | Top-K recommendations |
-| Sorting | Candidate ranking |
+  DSA                  Purpose
+  -------------------- --------------------------------------------
+  **BST**              Baseline ordered searching
+  **AVL Tree**         Balanced and efficient candidate retrieval
+  **Graph**            Freelancer--Skill--Project relationships
+  **Adjacency List**   Efficient graph representation
+  **BFS / DFS**        Exploring related skills and candidates
+  **Max Heap**         Top-K freelancer ranking
+  **Tree Traversal**   Processing indexed records
 
-## Initial Graph Model
+### Why these structures?
 
-```text
-Freelancer ── HAS_SKILL ──> Skill
-Freelancer ── WORKED_ON ──> Project
-Project ── REQUIRES ──> Skill
-Skill ── RELATED_TO ──> Skill
-```
+-   **AVL/BST** → Efficient searching and indexing
+-   **Graph** → Represents many-to-many relationships between
+    freelancers, skills and projects
+-   **BFS/DFS** → Explores connected skills and candidate relationships
+-   **Max Heap** → Efficiently retrieves the highest-scoring freelancers
 
-## Matching Approach
+## Matching Model
 
-The initial matching score is planned around:
+The planned matching score combines:
 
-```text
+``` text
 Skill Match
 + Experience
 + Rating
 + Availability
++ Project History
 + Budget Compatibility
 ```
 
-The exact weights will be finalized during implementation.
+The exact weights will be finalized and evaluated during implementation.
 
-## Literature Review
+## Research
 
-The initial research covered four relevant works:
+Review 1 covered three major research directions:
 
-1. **Sahnoun & Elhadjamor (2024)** — *Enhanced Freelance Matching: Integrated Data Analysis and Machine Learning Techniques.*  
-   Focus: freelance recommendation and matching.
+1.  **Skill Based Profile Mapping** --- project requirements → skills →
+    relevant profiles
+2.  **APAED Task Recommendation** --- recommendation and
+    competition-aware ranking
+3.  **Systematic Literature Review on Task Recommendation** --- dataset,
+    generalizability and evaluation challenges
 
-2. **Jouanneau, Palyart & Jouffroy (2024)** — *Skill Matching at Scale: Freelancer-Project Alignment for Efficient Multilingual Candidate Retrieval.*  
-   Focus: skill-based candidate retrieval.
+### Research Direction
 
-3. **Tu et al. (2017)** — *Gig Services Recommendation Method for Fuzzy Requirement Description.*  
-   Focus: gig-service recommendation and requirement matching.
+The project explores extending skill/domain-based matching into:
 
-4. **Barnabò et al. (2019)** — *Algorithms for Fair Team Formation in Online Labour Marketplaces.*  
-   Focus: algorithmic team formation.
+**Multi-factor freelancer selection + efficient DSA-based retrieval +
+Top-K recommendation**
 
-The literature review helped identify **skill matching, efficient candidate retrieval, relationship modelling, ranking, and future team formation** as important directions.
-
-## Current Progress
+##  Current Progress --- Review 1
 
 ### Completed
 
-- Problem understanding
-- Requirement identification
-- DSA Unit 1: Trees
-- DSA Unit 2: Graphs
-- DSA-to-project mapping
-- Initial matching workflow
-- Initial graph model
-- Literature review
-- Conceptual system architecture
+-   Problem understanding
+-   Requirement analysis
+-   Literature review
+-   Research-gap identification
+-   DSA-II Unit 1: Trees
+-   DSA-II Unit 2: Graphs
+-   DSA-to-project mapping
+-   Initial data model
+-   Initial graph model
+-   Matching workflow
+-   DSA implementation planning
 
-### Yet to Implement
+###  Next
 
-- Database
-- BST / AVL implementation
-- Graph implementation
-- Matching algorithm
-- Max Heap recommendation
-- Frontend and backend
-- Testing and performance analysis
+-   BST implementation
+-   AVL implementation
+-   Graph + Adjacency List
+-   BFS / DFS
+-   Candidate filtering
+-   MatchScore calculation
+-   Max Heap
+-   Top-K recommendations
+-   Frontend & backend integration
+-   Testing and performance evaluation
+
+> **Current status:** Review 1 --- Research & Initial DSA Design\
+> **Progress:** 25%\
+> **Implementation:** Planned for Review 2
 
 ## Future Scope
 
-- Explainable recommendations
-- Skill graph
-- Multi-freelancer team formation
-- Dynamic recommendations
-- Freelancer skill improvement suggestions
-- Project success prediction
+-   Explainable recommendations
+-   Skill graph
+-   Multi-freelancer team formation
+-   Dynamic recommendations
+-   Skill improvement suggestions
+-   Project success prediction
+-   Competition-aware ranking
 
-## Project Goal
+## 🎓 Academic Focus
 
-The main goal is to demonstrate how DSA concepts can be applied to a practical marketplace problem and build an efficient recommendation engine instead of creating only a basic freelance marketplace.
+The main objective is **not just to build another freelance
+marketplace**.
 
-**Status:** Month 1 – Problem Understanding, Research & Initial Design  
+The project focuses on demonstrating how **DSA can solve the underlying
+candidate retrieval and recommendation problem efficiently**.
+
+``` text
+Graph → Candidate Discovery
+AVL/BST → Efficient Retrieval
+MatchScore → Suitability Evaluation
+Max Heap → Top-K Ranking
+```
+
+**Course:** Data Structure and Algorithms-II\
+**Project:** Intelligent Freelance Marketplace Platform\
+**Review:** 1\
 **Progress:** 25%
