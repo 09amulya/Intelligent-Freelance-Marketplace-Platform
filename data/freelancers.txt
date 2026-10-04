@@ -1,0 +1,10 @@
+101|Aarav|C++,SQL,DSA|3|4.7|1|800
+102|Priya|Python,Machine Learning,SQL|2|4.8|1|700
+103|Rahul|React,Node.js,MongoDB|4|4.6|1|900
+104|Ananya|Java,Spring,SQL|3|4.5|0|750
+105|Arjun|C++,Java,DSA|5|4.9|1|1000
+106|Neha|Python,React,JavaScript|2|4.4|1|650
+107|Kabir|Node.js,Express,MongoDB|3|4.7|1|850
+108|Ishita|C++,Python,Machine Learning|4|4.8|0|950
+109|Rohan|React,JavaScript,Node.js|2|4.3|1|600
+110|Meera|SQL,Python,Data Analysis|5|4.9|1|900

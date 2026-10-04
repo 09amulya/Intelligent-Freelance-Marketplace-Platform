@@ -6,6 +6,7 @@
 #include <vector>
 #include <queue>
 #include <unordered_set>
+#include <string>
 
 using namespace std;
 
@@ -14,19 +15,22 @@ class Graph {
 private:
 
     // Adjacency List
-    unordered_map<int, vector<int>> adjList;
+    unordered_map<string, vector<string>> adjList;
 
 public:
 
     // Add a vertex
-    void addVertex(int vertex) {
+    void addVertex(const string& vertex) {
         if (adjList.find(vertex) == adjList.end()) {
             adjList[vertex] = {};
         }
     }
 
-    // Add an undirected edge
-    void addEdge(int u, int v) {
+    // Add an undirected relationship
+    void addEdge(
+        const string& u,
+        const string& v
+    ) {
 
         addVertex(u);
         addVertex(v);
@@ -36,29 +40,29 @@ public:
     }
 
     // BFS traversal
-    void BFS(int start) {
+    void BFS(const string& start) {
 
         if (adjList.find(start) == adjList.end()) {
-            cout << "Starting vertex not found.\n";
+            cout << "Vertex not found.\n";
             return;
         }
 
-        unordered_set<int> visited;
-        queue<int> q;
+        unordered_set<string> visited;
+        queue<string> q;
 
         visited.insert(start);
         q.push(start);
 
-        cout << "BFS: ";
+        cout << "\nBFS Traversal: ";
 
         while (!q.empty()) {
 
-            int current = q.front();
+            string current = q.front();
             q.pop();
 
             cout << current << " ";
 
-            for (int neighbour : adjList[current]) {
+            for (const string& neighbour : adjList[current]) {
 
                 if (visited.find(neighbour) == visited.end()) {
 
@@ -73,17 +77,16 @@ public:
 
 private:
 
-    // DFS helper
     void DFSUtil(
-        int vertex,
-        unordered_set<int>& visited
+        const string& vertex,
+        unordered_set<string>& visited
     ) {
 
         visited.insert(vertex);
 
         cout << vertex << " ";
 
-        for (int neighbour : adjList[vertex]) {
+        for (const string& neighbour : adjList[vertex]) {
 
             if (visited.find(neighbour) == visited.end()) {
 
@@ -95,32 +98,32 @@ private:
 public:
 
     // DFS traversal
-    void DFS(int start) {
+    void DFS(const string& start) {
 
         if (adjList.find(start) == adjList.end()) {
-            cout << "Starting vertex not found.\n";
+            cout << "Vertex not found.\n";
             return;
         }
 
-        unordered_set<int> visited;
+        unordered_set<string> visited;
 
-        cout << "DFS: ";
+        cout << "\nDFS Traversal: ";
 
         DFSUtil(start, visited);
 
         cout << endl;
     }
 
-    // Display adjacency list
+    // Display graph
     void displayGraph() {
 
-        cout << "\n--- Adjacency List ---\n";
+        cout << "\n========== MARKETPLACE GRAPH ==========\n";
 
         for (const auto& pair : adjList) {
 
             cout << pair.first << " -> ";
 
-            for (int neighbour : pair.second) {
+            for (const string& neighbour : pair.second) {
                 cout << neighbour << " ";
             }
 
