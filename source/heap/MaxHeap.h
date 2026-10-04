@@ -2,6 +2,7 @@
 #define MAX_HEAP_H
 
 #include "../models/Freelancer.h"
+
 #include <iostream>
 #include <vector>
 #include <utility>
@@ -9,10 +10,21 @@
 
 using namespace std;
 
+
+// ==========================================================
+// FREELANCER MATCH
+// ==========================================================
+
 struct FreelancerMatch {
+
     Freelancer freelancer;
     double score;
 };
+
+
+// ==========================================================
+// MAX HEAP
+// ==========================================================
 
 class MaxHeap {
 
@@ -20,60 +32,102 @@ private:
 
     vector<FreelancerMatch> heap;
 
-    // Move a node upward
+
+    // ------------------------------------------------------
+    // HEAPIFY UP
+    // ------------------------------------------------------
+
     void heapifyUp(int index) {
 
         while (index > 0) {
 
-            int parent = (index - 1) / 2;
+            int parent =
+                (index - 1) / 2;
 
-            if (heap[parent].score >= heap[index].score) {
+
+            if (heap[parent].score >=
+                heap[index].score) {
+
                 break;
             }
 
-            swap(heap[parent], heap[index]);
+
+            swap(
+                heap[parent],
+                heap[index]
+            );
+
 
             index = parent;
         }
     }
 
-    // Move a node downward
+
+    // ------------------------------------------------------
+    // HEAPIFY DOWN
+    // ------------------------------------------------------
+
     void heapifyDown(int index) {
 
         int n = heap.size();
 
+
         while (true) {
 
-            int left = 2 * index + 1;
-            int right = 2 * index + 2;
+            int left =
+                2 * index + 1;
 
-            int largest = index;
+            int right =
+                2 * index + 2;
 
-            if (left < n &&
-                heap[left].score > heap[largest].score) {
+            int largest =
+                index;
+
+
+            if (
+                left < n &&
+                heap[left].score >
+                heap[largest].score
+            ) {
 
                 largest = left;
             }
 
-            if (right < n &&
-                heap[right].score > heap[largest].score) {
+
+            if (
+                right < n &&
+                heap[right].score >
+                heap[largest].score
+            ) {
 
                 largest = right;
             }
 
+
             if (largest == index) {
+
                 break;
             }
 
-            swap(heap[index], heap[largest]);
+
+            swap(
+                heap[index],
+                heap[largest]
+            );
+
 
             index = largest;
         }
     }
 
+
 public:
 
-    // Insert a freelancer with match score
+
+    // ======================================================
+    // INSERT
+    // ======================================================
+
     void insert(
         const Freelancer& freelancer,
         double score
@@ -84,86 +138,205 @@ public:
             score
         };
 
+
         heap.push_back(match);
 
-        heapifyUp(heap.size() - 1);
+
+        heapifyUp(
+            heap.size() - 1
+        );
     }
 
 
-    // Check whether heap is empty
+    // ======================================================
+    // EMPTY
+    // ======================================================
+
     bool empty() const {
+
         return heap.empty();
     }
 
 
-    // Get highest scoring freelancer
+    // ======================================================
+    // SIZE
+    // ======================================================
+
+    int size() const {
+
+        return static_cast<int>(
+            heap.size()
+        );
+    }
+
+
+    // ======================================================
+    // TOP
+    // ======================================================
+
     FreelancerMatch top() const {
 
         if (heap.empty()) {
-            throw runtime_error("Heap is empty.");
+
+            throw runtime_error(
+                "Heap is empty."
+            );
         }
+
 
         return heap[0];
     }
 
 
-    // Remove and return highest scoring freelancer
+    // ======================================================
+    // EXTRACT MAX
+    // ======================================================
+
     FreelancerMatch extractMax() {
 
         if (heap.empty()) {
-            throw runtime_error("Heap is empty.");
+
+            throw runtime_error(
+                "Heap is empty."
+            );
         }
 
-        FreelancerMatch result = heap[0];
 
-        heap[0] = heap.back();
+        FreelancerMatch result =
+            heap[0];
+
+
+        heap[0] =
+            heap.back();
+
+
         heap.pop_back();
 
+
         if (!heap.empty()) {
+
             heapifyDown(0);
         }
+
 
         return result;
     }
 
 
-    // Display top K freelancers
-    void displayTopK(int k) {
+    // ======================================================
+    // GET TOP K
+    //
+    // IMPORTANT:
+    // This method does NOT destroy the original heap.
+    // ======================================================
+
+    vector<FreelancerMatch> getTopK(
+        int k
+    ) const {
+
+        vector<FreelancerMatch> result;
+
+
+        if (k <= 0 ||
+            heap.empty()) {
+
+            return result;
+        }
+
+
+        // Make a copy of the heap.
+        MaxHeap temporaryHeap;
+
+        temporaryHeap.heap =
+            heap;
+
+
+        int count =
+            min(
+                k,
+                static_cast<int>(
+                    temporaryHeap.heap.size()
+                )
+            );
+
+
+        for (int i = 0;
+             i < count;
+             i++) {
+
+            result.push_back(
+                temporaryHeap.extractMax()
+            );
+        }
+
+
+        return result;
+    }
+
+
+    // ======================================================
+    // DISPLAY TOP K
+    // ======================================================
+
+    void displayTopK(
+        int k
+    ) const {
+
+        vector<FreelancerMatch> topMatches =
+            getTopK(k);
+
 
         cout << "\n===== TOP "
-             << k
+             << topMatches.size()
              << " FREELANCER RECOMMENDATIONS =====\n";
 
-        int count = 0;
 
-        while (!heap.empty() && count < k) {
+        for (
+            int i = 0;
+            i < static_cast<int>(
+                    topMatches.size()
+                );
+            i++
+        ) {
 
-            FreelancerMatch match = extractMax();
+            const FreelancerMatch& match =
+                topMatches[i];
+
 
             cout << "\nRank: "
-                 << count + 1 << endl;
+                 << i + 1
+                 << endl;
+
 
             cout << "Freelancer ID: "
-                 << match.freelancer.id << endl;
+                 << match.freelancer.id
+                 << endl;
+
 
             cout << "Name: "
-                 << match.freelancer.name << endl;
+                 << match.freelancer.name
+                 << endl;
+
 
             cout << "Match Score: "
-                 << match.score << endl;
+                 << match.score
+                 << endl;
+
 
             cout << "Rating: "
-                 << match.freelancer.rating << endl;
+                 << match.freelancer.rating
+                 << endl;
+
 
             cout << "Experience: "
                  << match.freelancer.experience
-                 << " years" << endl;
+                 << " years"
+                 << endl;
+
 
             cout << "Hourly Rate: Rs. "
                  << match.freelancer.hourlyRate
                  << endl;
-
-            count++;
         }
     }
 };
