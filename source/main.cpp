@@ -4,7 +4,8 @@
 #include "trees/AVLTree.h"
 #include "graph/Graph.h"
 #include "algorithm/Matching.h"
-
+#include "heap/MaxHeap.h"
+#include "algorithm/Knapsack.h"
 using namespace std;
 
 int main() {
@@ -155,6 +156,81 @@ matcher.displayMatchScore(
     projectBudget
 );
 
+
+
+// =========================
+// TOP-K RECOMMENDATION
+// =========================
+
+MaxHeap recommendationHeap;
+
+vector<Freelancer> freelancers = {
+    f1,
+    f2,
+    f3,
+    f4,
+    f5
+};
+
+for (const Freelancer& freelancer : freelancers) {
+
+    double score =
+        matcher.calculateMatchScore(
+            freelancer,
+            requiredSkills,
+            projectBudget
+        );
+
+    recommendationHeap.insert(
+        freelancer,
+        score
+    );
+}
+
+recommendationHeap.displayTopK(3);
+
+
+// =========================
+// 0/1 KNAPSACK
+// =========================
+
+vector<SelectedFreelancer> candidates;
+
+for (const Freelancer& freelancer : freelancers) {
+
+    double score =
+        matcher.calculateMatchScore(
+            freelancer,
+            requiredSkills,
+            projectBudget
+        );
+
+    // Only consider freelancers who are
+    // reasonably suitable for the project.
+    if (score >= 50.0) {
+
+        candidates.push_back({
+            freelancer,
+            score
+        });
+    }
+}
+
+Knapsack knapsack;
+
+// Client's total project budget
+int totalBudget = 1800;
+
+vector<SelectedFreelancer> selected =
+    knapsack.selectFreelancers(
+        candidates,
+        totalBudget
+    );
+
+knapsack.displaySelection(
+    selected,
+    totalBudget
+);
 
     return 0;
 }
